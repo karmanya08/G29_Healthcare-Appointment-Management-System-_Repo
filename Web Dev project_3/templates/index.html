@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../images/logo2.png" type="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <style>
+        :root {
+    --maximum-yellow-red: hsl(188, 96%, 48%);
+    --royal-blue-dark: hsl(231, 61%, 22%);
+    --silver-chalice: hsl(0, 0%, 70%);
+    --oxford-blue: hsl(231, 100%, 8%);
+    --bittersweet: rgb(55, 152, 200);
+    --french-rose:hsl(188, 96%, 48%);
+    --davys-gray: hsl(180, 3%, 28%);
+    --cool-gray: hsl(240, 13%, 62%);
+    --platinum: hsl(0, 0%, 92%);
+    --white-2: hsl(0, 0%, 98%);
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+    --rythm: hsl(240, 9%, 53%);
+
+    --ff-poppins: "Poppins", sans-sarif;
+
+    --fs-1: 32px;
+    --fs-2: 26px;
+    --fs-3: 22px;
+    --fs-4: 18px;
+    --fs-5: 15px;
+    --fs-6: 14px;
+
+    --fw-700: 700;
+    --fw-600: 600;
+    --fw-500: 500;
+
+    --transition: 0.25s ease-in-out;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+li { list-style: none; }
+a { text-decoration: none; }
+a, img, button, span, ion-icon, label, input, textarea { display: block; }
+
+button {
+    font: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+textarea, input { 
+    font: inherit;
+    background: none;
+    border: none;
+    width: 100%;
+}
+
+    :is(input, textarea):focus { outline: none; }
+:focus { outline-offset: 4px; }
+html { font-family: var(--ff-poppins); scroll-behavior: smooth; }
+body { background: var(--white); overflow-x: hidden; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--white); }
+::-webkit-scrollbar-thumb { background: hsl(0, 0%, 50%); }
+/* 
+.container { padding: 0px 15px; } */
+
+.h1, .h2, .h3 { font-weight: var(--fw-600); line-height: 1.3; text-transform: capitalize; }
+    .h1 { color: var(--oxford-blue); font-size: var(--fs-1); }
+    .h2 { font-size: var(--fs-2); }
+    .h3 { color: var(--oxford-blue); font-size: var(--fs-3); }
+    .h4 { color: var(--royal-blue-dark); font-size: var(--fs-5); font-weight: var(--fw-600); }
+
+.btn {
+    font-size: var(--fs-6);
+    text-transform: uppercase;
+    font-weight: var(--fw-600);
+    padding: 10px 40px;
+    border: 1px solid;
+    border-radius: 6px;
+}
+
+.btn-primary{ background: var(--bittersweet); border-color: var(--bittersweet); color: var(--white); }
+    .btn-primary:is(:hover, :focus) { --bittersweet: hsl(188, 91%, 50%); }
+    .btn-secondary:is(:hover, :focus) { background: hsla(0, 0%, 100%, .1); }
+
+/*HEADER*/
+
+header {  z-index: 2; }
+    header .container { display: flex; justify-content: space-between; align-items: center; }
+
+.navbar-menu-btn { font-size: 30px; padding: 5px; }
+
+.navbar {
+    position: absolute;
+    /* top: calc(100% - 15px); */
+    /* left: 15px;
+    right: 15px; */
+    background: var(--maximum-yellow-red);
+    max-height: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: var(--transition);
+    transform-origin: top;
+    overflow: hidden;
+}
+
+    .navbar.active { visibility: visible; pointer-events: all; max-height: 280px; }
+    .navbar .btn-primary { display: none; }
+
+.navbar-list { padding: 10px; }
+.nav-item>a:hover{color:hsl(188, 96%, 48%); ;}
+.nav-item:not(:last-child) { border-bottom: 1px solid hsla(0, 0%, 100%, .2); }
+
+.nav-link {
+    font-size: var(--fs-6);
+    color: var(--royal-blue-dark);
+    font-weight: var(--fw-600);
+    padding: 15px 10px;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+    .nav-link:is(:hover, :focus) { background: hsla(0, 0%, 100%, .2);}
+    .navbar.active .nav-link { transition-delay: .2s; opacity: 1; }
+
+
+.header__content h1{
+    margin-bottom: 4rem;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    text-align: center;
+}
+
+.header__form form{
+    margin-top: -55px;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    background-color:   rgb(55, 152, 200);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+}
+
+.header_form .input_group{
+    flex: 1 0 170px;
+    display: grid;
+    gap: 10px;
+}
+
+.header__form label{
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.header__form input{
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+    padding: 5px 10px;
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.header__form select{
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    border-radius: 1rem;
+    padding: 5px 10px;
+    color: var(--text-light);
+}
+
+.header__form .btn{
+    padding: 15px 17px;
+}
+/*HERO*/
+
+.hero { position: relative; z-index: 1; }
+    .hero .btn-primary { margin-inline: auto; }
+.hero-content { text-align: left; }
+.hero-title, .hero-text { margin-bottom: 40px; }
+    .hero-text { font-size: var(--fs-4); color: var(--oxford-blue); }
+.hero-banner { display: none; }
+
+.shape-content {
+    position: absolute;
+    width: 2000px;
+    top: -230px;
+    right: -300px;
+    z-index: -1;
+}
+
+/*ABOUT*/
+
+.about {
+    position: relative;
+    z-index: 1;
+    background-color:rgb(55, 152, 200);
+    border-radius: 80px;
+    background-image: url('..\images\about.png') no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* padding: 120px 0; */
+    margin-top: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+    .about .h2 { color: var(--white); }
+
+.about-top { margin-bottom: 120px; }
+    .about-top .section-title { margin-bottom: 20px; }
+    .about-top .section-text { color: var(--white); font-size: var(--fs-4); margin-bottom: 60px; }
+
+.about-list { display: grid; grid-template-columns: 1fr; gap: 30px; }
+.about-card { background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 2px 4px hsla(0, 0%, 0%, .1); }
+    .about-card .card-title { margin-bottom: 15px; }
+    .about-card .card-text { color: var(--davys-gray); }
+
+.card-icon {
+    color: var(--bittersweet);
+    font-size: 45px;
+    width: max-content;
+    margin-inline: auto;
+    margin-bottom: 15px;
+}
+
+.about-bottom-banner { margin-bottom: 120px; }
+    .about-bottom-banner img { width: 100%; height: 100%; }
+
+.about-bottom .section-title { margin-bottom: 20px; }
+.about-bottom .section-text { color: var(--white); font-size: var(--fs-4); margin-bottom: 40px; }
+.about-bottom .btn-secondary { color: var(--white); margin-inline: auto; }
+
+/*FEATURES*/
+
+.features { padding: 120px 0; text-align: center; }
+    .features .section-title { color: black; margin-bottom: 20px; }
+    .features .section-text { color: var(--rythm); font-size: var(--fs-4); margin-bottom: 120px; }
+
+.features-item:first-child { margin-bottom: 100px; }
+.features-item-banner { max-width: 350px; margin-inline: auto; margin-bottom: 60px; }
+    .features-item-banner img { width: 100%; }
+.features-item .item-title { color:black; margin-bottom: 20px; }
+.features-item .item-text { color: var(--rythm); font-size: var(--fs-4); }
+
+/*CTA*/
+
+.cta { padding: 120px 0; }
+    .cta input { color: var(--white); padding: 10px 15px; border-bottom: 1px solid; margin-bottom: 30px; }
+        .cta input::placeholder { color: inherit; }
+    .cta .btn-secondary { color: var(--white); margin-inline: auto; }
+
+.cta-card { 
+    background: linear-gradient(to top, var(--bittersweet) 0, var(--french-rose));
+    padding: 80px 36px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.cta-title {
+    color: var(--white);
+    font-size: var(--fs-1);
+    font-weight: var(--fw-600);
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.cta-text { color: var(--white); font-size: var(--fs-6); margin-bottom: 50px; }
+
+/*CONTACT*/
+
+.contact { margin-bottom: 120px; }
+.contact-content { margin-bottom: 50px; }
+.contact-title { color: var(--royal-blue-dark); margin-bottom: 60px; text-align: center; font-weight: var(--fw-500) !important; }
+.contact-banner img { width: 100%; }
+.input-wrapper { margin-bottom: 30px; }
+.input-label { color: var(--oxford-blue); font-size: var(--fs-6); font-weight: var(--fw-600); margin-bottom: 10px; }
+.input-field { border-bottom: 1px solid var(--platinum); padding: 7px 0; font-size: var(--fs-6); }
+    .input-field::placeholder { color: var(--silver-chalice); }
+textarea { max-height: 300px; min-height: 100px; height: 100px; resize: vertical; }
+
+/*FOOTER*/
+
+footer { background: var(--white-2); }
+    footer .logo { margin-bottom: 30px; }
+.footer-top { padding: 80px 0px 50px; }
+.footer-brand { margin-bottom: 20px; }
+.footer-text { color: var(--rythm); font-size: var(--fs-6); margin-bottom: 20px; }
+.social-list { display: flex; justify-content: flex-start; gap: 20px; }
+.social-link { color: var(--rythm); font-size: var(--fs-4); margin-bottom: 10px; }
+    .social-link:is(:hover, :focus) { color: var(--french-rose); }
+.footer-link-list:not(:last-child) { margin-bottom: 30px; }
+.footer-link-list .link-title { margin-bottom: 15px; }
+.footer-link { color: var(--cool-gray); font-size: var(--fs-6); margin-bottom: 10px; max-width: 150px; }
+    .footer-link:is(:hover, :focus) { color: var(--french-rose); }
+.footer-bottom { padding: 20px 15px; border-top: 1px solid hsla(0, 0%, 18%, .2); }
+.copyright { color: var(--cool-gray); text-align: center; font-size: var(--fs-6); }
+    .copyright a { display: inline-block; color: var(--cool-gray); }
+        .copyright a:is(:hover, :focus) { color: var(--french-rose); }
+
+/*GO-TOP*/
+
+.go-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 5;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(-45deg, var(--maximum-yellow-red), var(--french-rose));
+    box-shadow: 0 2px 4px hsla(0, 0%, 0%, .25);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 22px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+    .go-top.active { opacity: 1; visibility: visible; pointer-events: all; }
+
+#doctor-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+
+
+/*MEDIA QUERIES*/
+
+@media(min-width: 450px) {
+    :root {
+        --fs-1: 60px;
+    }
+
+    .h1, .h2 { font-weight: var(--fw-700); }
+    .btn { padding-block: 15px; }
+
+    .navbar { left: auto; width: 300px; }
+
+    .hero { position: relative;padding: 140px 0 ; }
+    .shape-content { top: -70px; right: -260px; }
+
+    .about-card .card-title { padding-inline: 40px; }
+    .about-bottom-banner { max-width: 400px; margin-inline: auto; margin-bottom: 40px; }
+    .about-bottom-content { padding-inline: 50px;}
+
+    .features .h2 { --fs-2: 32px; }
+
+    .cta-title { --fs-1: 42px; }
+    .cta-form { display: flex; justify-content: center; align-items: flex-end; gap: 30px; }
+    .cta input { margin-bottom: 0; }
+    .cta .btn-secondary { min-width: max-content; }
+
+    .contact-title { --fs-2: 32px; }
+    .contact-banner { max-width: 300px; margin-inline: auto; }
+}
+
+@media(min-width: 560px) {
+    .container { max-width: 550px; margin-inline: auto; }
+
+    .navbar-wrapper { position: relative; }
+    .navbar { top: calc(100% + 15px); right: 0; }
+
+    .hero-content, .about-bottom-content { text-align: left; }
+    .hero .btn-primary, .about-bottom .btn-secondary { margin-inline: 0; }
+    .shape-content { top: -156px; right: -152px; }
+
+    .footer-brand { margin-bottom: 40px; }
+    .footer-link-box { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+@media(min-width: 768px) {
+    :root {
+        --fs-2: 35px;
+        --fs-4: 20px;
+    }
+
+    .container { max-width: 740px; }
+
+    .about-list { grid-template-columns: 1fr 1fr; }
+
+    .about-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .about-card .card-title { padding-inline: 0; }
+
+    .contact-title { --fs2: 42px; }
+}
+
+@media(min-width: 1024px) {
+    .container { max-width: 1150px; }
+
+    .navbar-menu-btn { display: none; }
+
+    .navbar {
+        max-height: unset;
+        visibility: visible;
+        position: static;
+        width: auto;
+        background: none;
+        pointer-events: all;
+        overflow: visible;
+        display: flex;
+    }
+
+    .navbar-list {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-right: 20px;
+    }
+
+    .nav-link { opacity: 1; padding: 0 15px; }
+    .navbar .btn-primary { display: block; }
+
+    .hero-content { max-width: 550px; }
+
+    .hero-banner {
+        display: block;
+        position: absolute;
+        top: 35%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 500px;
+        padding-top: 500px;
+        background: url(https://www.pngall.com/wp-content/uploads/2018/05/Doctor-PNG-File-Download-Free.png) no-repeat;
+        background-size: contain;
+    }
+
+    .about-top .section-text { max-width: 650px; margin-inline:  auto; }
+    .about-list { grid-template-columns: repeat(3, 1fr); }
+    .about-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .about-bottom-banner { margin-bottom: 0; height: 330px; }
+    .about-bottom-content { padding-inline: 0; width: 50%; }
+
+    .features :is(.section-title .section-text) { max-width: 650px; margin-inline: auto; }
+    .features-item { display: flex; align-items: center; gap: 50px; }
+        .features-item:last-child { flex-direction: row-reverse; }
+    .features-item-banner { margin-inline: 0; margin-bottom: 0; }
+    .feature-item-content { width: 50%; text-align: left; }
+
+    .cta-card > * {max-width: 500px; margin-inline: auto; }
+
+    .contact .container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
+    .contact-content { max-width: 400px; }
+    .contact-title { text-align: left; }
+    .contact-form { width: 50%; }
+
+    .footer-top .container { display: flex; justify-content: space-between; align-items: center; gap: 50px; }
+    .footer-brand, .footer-link-list:not(:last-child) { margin-bottom: 0; }
+    .footer-link-box { grid-template-columns: repeat(4, 1fr); gap: 50px; } 
+}
+
+@media(min-width: 1200px) {
+    :root { --fs-2: 42px; }
+
+    .container { max-width: 1150px; }
+
+    .hero-banner { right: 100px; }
+
+    .about-bottom-banner { height: 400px; }
+
+    .features .h2 { --fs-2: 42px; }
+    .features :is(.section-text, .section-title) { max-width: 850px; }
+}
+
+/* //////// */
+.heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.human-heart {
+  margin: 5em;
+  animation: .8s infinite beatHeart;
+}
+
+@keyframes beatHeart {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+#heart-side>h1{
+    font-size: xx-large;
+    font-weight:bolder;
+    margin-top: 50px;
+
+}
+.about-card{
+    transition: 0.5s ease-in 0s;
+}
+.about-card:hover{
+    transform: scale(1.1);    
+}
+    </style>
+</head>
+<body id="top">
+    <header>
+        <div class="container">  <a href="{{url_for('index')}}" class="logo"><img style="height: 110px;width: 300px; justify-content: flex-start;" src="../static/images/logo2.png" alt="Care 360 logo"></a>
+
+            <nav class="navbar navbar-expand-lg">  <div class="container-fluid">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        {% if current_user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                            </li>
+                            {% if current_user.role == 'doctor' %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('add_book') }}">Add Appointment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('orders') }}">Manage Appointments</a>
+                                </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('get_appointment')}}">Get Appointment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('track_orders')}}">Track Appointments</a>
+                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('cart') }}">cart</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+              </nav>
+
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="hero" id="home">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="h1 hero-title">Bringing Care,<br>Close To You</h1>
+
+                        <p class="hero-text">Easily manage your healthcare appointments and stay on top of your health with our patient-friendly system. Book and track your appointments effortlessly—your health, your schedule, simplified.</p>
+
+                        <!-- <button class="btn btn-primary">Book Appointment</button> -->
+                    </div>
+                    <div class="hero-banner"></div>
+                </div>
+
+                <!-- <img src="https://i.postimg.cc/HLrpzpKz/bg.png" alt="shape" class="shape-content"> -->
+            </section>
+            <section class="header__form">
+                <form action="">
+                    <div class="input__group">
+                        <label for="city">Pick a Location</label>
+                        <select name="city" id="city" required>
+                            <option value=""> Select City </option>
+                            <option value="Agra">Agra</option>
+                            <option value="Ahmedabad">Ahmedabad</option>
+                            <option value="Ambala">Ambala</option>
+                            <option value="Amritsar">Amritsar</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Bhopal">Bhopal</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Coimbatore">Coimbatore</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Faridabad">Faridabad</option>
+                            <option value="Ferozpur">Ferozpur</option>
+                            <option value="Gandhinagar">Gandhinagar</option>
+                            <option value="Ghaziabad">Ghaziabad</option>
+                            <option value="Gurugram">Gurugram</option>
+                            <option value="Guwahati">Guwahati</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Indore">Indore</option>
+                            <option value="Jaipur">Jaipur</option>
+                            <option value="Jalandhar">Jalandhar</option>
+                            <option value="Kanpur">Kanpur</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Lucknow">Lucknow</option>
+                            <option value="Ludhiana">Ludhiana</option>
+                            <option value="Mohali">Mohali</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Nagpur">Nagpur</option>
+                            <option value="Nasik">Nasik</option>
+                            <option value="Noida">Noida</option>
+                            <option value="Patiala">Patiala</option>
+                            <option value="Patna">Patna</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Rajkot">Rajkot</option>
+                            <option value="Rajpura">Rajpura</option>
+                            <option value="Ranchi">Ranchi</option>
+                            <option value="Shimla">Shimla</option>
+                            <option value="Siliguri">Siliguri</option>
+                            <option value="Srinagar">Srinagar</option>
+                            <option value="Surat">Surat</option>
+                            <option value="Thane">Thane</option>
+                            <option value="Trivandrum">Trivandrum</option>
+                            <option value="Vadodara">Vadodara</option>
+                            <option value="Zirakpur">Zirakpur</option>
+                        </select>
+                    </div>
+        
+                    <div class="input__group">
+                        <label for="date">Choose Date & Day</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+        
+                    <div class="input__group">
+                        <label for="health">Health Problem or Illness</label>
+                        <select name="health" id="health" required>
+                            <option value="">---- Select ----</option>
+                            <option value="common_cold">Common Cold</option>
+                            <option value="flu">Flu</option>
+                            <option value="bronchitis">Routine Dental Checkup</option>
+                            <option value="pneumonia">Pneumonia</option>
+                            <option value="asthma">Asthma</option>
+                            <option value="gastroenteritis">Apendicitis</option>
+                            <option value="food_poisoning">Food Poisoning</option>
+                            <option value="acid_reflux">Capping of Tooth</option>
+                            <option value="constipation">Constipation</option>
+                            <option value="uti">Urinary Tract Infection (UTI)</option>
+                            <option value="sinusitis">Sinusitis</option>
+                            <option value="ear_infection">Ear Infection</option>
+                            <option value="skin_allergies">Skin Allergies</option>
+                            <option value="ortho">Orthopedic Trouble</option>
+                            <option value="migraine">Migraine</option>
+                            <option value="hypertension">Hypertension (High Blood Pressure)</option>
+                            <option value="diabetes">Diabetes</option>
+                            <option value="arthritis">Arthritis</option>
+                            <option value="anemia">Eye Infection & Checkup</option>
+                            <option value="depression">Depression</option>
+                        </select>
+                    </div>
+                    <button class="btn">Search <i class="ri-search-line"></i></button>
+                </form>
+            </section>
+
+            <section class="about" id="about">
+                <div class="container">
+                    <div class="about-top">
+                        <h2  class="h2 section-title">What we do</h2>
+
+                        <p class="section-text">This system ensures efficient use of resources, reduces wait times, and improves overall healthcare service delivery.</p>
+
+                        <ul class="about-list">
+                            <li>
+                                <div class="about-card">
+                                    <div class="card-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
+
+                                    <h3 class="h3 card-title">Connecting Proffesional Doctors</h3>
+
+                                    <p class="card-text">Our platform bridges the gap between patients and professional doctors, ensuring access to quality healthcare at your fingertips.</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="about-card">
+                                    <div class="card-icon"><ion-icon name="chatbubbles-outline"></ion-icon></div>
+
+                                    <h3 class="h3 card-title">Empowering Skilled Professionals</h3>
+
+                                    <p class="card-text">With a focus on precision and efficiency, our platform empowers healthcare providers to manage their appointments effortlessly while maintaining the integrity and trust their patients rely on.</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="about-card">
+                                    <div class="card-icon"><ion-icon name="rocket-outline"></ion-icon></div>
+
+                                    <h3 class="h3 card-title">Expanding Access: Over 20 Cities</h3>
+
+                                    <p class="card-text">We Connect is proud to offer healthcare appointment management services in over 20 cities, bringing quality healthcare closer to you. </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="about-bottom" style="margin-bottom: 100px;">
+                        <figure class="about-bottom-banner">
+                            <!-- <img src="https://i.postimg.cc/nzjhFvtq/about-banner.png" alt="about banner" class="about-banner"> -->
+                            <div class="heart">
+                                <img src="http://robozzle.com/igoro/211px-CoeurHumain_svg.gif" class="human-heart" alt="human heart" />
+                              </div>
+                              <div>
+                                
+                              </div>
+                              
+                              <!-- <audio src="http://static1.grsites.com/archive/sounds/medical/medical006.mp3" autoplay loop></audio> -->
+                        </figure>
+
+                        <div class="" id="heart-side">
+                            <h1>"Where Every Heartbeat Matters—Effortless Healthcare at Your Fingertips."</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- ////////////// -->
+            <section>
+                <div id="doctor-container">
+                    <img style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px;border-radius: 8px;" src="https://d1uhlocgth3qyq.cloudfront.net/provider-message___b9ca1.jpg" alt="">
+                    <div>
+                        <h2 style="font-size: medium;margin-top: 80px;">Care 360 for Private Practices</h2>
+                        <h1 style="font-size: x-large;padding-bottom: 50px;">Are you a provider interested in reaching new patients?</h1>
+                        <br>
+                        <ul>
+                         <li>Reach pateients in your area looking for a new provider</li>
+                         <li>Fill last minute openings in your schedule</li>
+                         <li>Strengthen your online reputation with verified reviews</li><br>
+                        </ul>
+                        <button style="padding: 20px;background-color: black;color: aliceblue;border-radius: 20px;">List your practice on Care 360</button>
+                    </div>
+                </div>
+            </section>
+            <div style="display: flex;background-color: beige;width: 80%;margin: auto;height: 500px;margin-top: 200px; justify-content: center;">
+                <div style="display: flex;flex-direction: column;justify-content: center; height: 100%;width: 30%;">
+                    <h3>Zocdoc for health systems</h3><br>
+                    <h1>We’re trusted by top health systems</h1><br>
+                    <button style="padding: 15px 15px;background-color: black;color: aliceblue;border-radius: 20px;width: 250px;">Partner With Care 360</button>
+
+                </div>
+                <div style="display: flex;flex-direction: column;justify-content:center;align-items: center; height: 100%;width: 50%;">
+                <div style="display: flex;flex-direction: row;justify-content: center;align-items:center;gap: 30px;margin-bottom: -150px;">
+                    <div><img style="width: 150px;height: 300px;"src="https://d1uhlocgth3qyq.cloudfront.net/medstar-health-logo___baa3b.svg"></div>
+                    <div><img style="width: 150px;height: 300px;"src="https://d1uhlocgth3qyq.cloudfront.net/mountsinai-logo___c1387.svg"></div>
+                    <div><img style="width: 150px;height: 300px;"src="https://d1uhlocgth3qyq.cloudfront.net/tufts-medical-logo___5e76f.svg"></div>
+                </div>
+                <div style="display: flex; flex-direction: row;justify-content: center;align-items:center;gap: 30px;">
+                    <div><img style="width: 150px;height: 300px;"src="https://d1uhlocgth3qyq.cloudfront.net/montefiore-logo___1361e.svg"></div>
+                    <div><img style="width: 150px;height: 300px;"src="https://d1uhlocgth3qyq.cloudfront.net/intermount-health___aabe2.svg"></div>
+                    <div><img style="width: 150px;height: 300px;"src="https://d1uhlocgth3qyq.cloudfront.net/montefiore-logo___1361e.svg"></div>
+                </div>
+                </div>
+
+            </div>
+
+
+            <!-- //////////////// -->
+
+            <section class="features" id="features">
+                <div class="container">
+                    <h2 class="h2 section-title">Streamlined and Effortless Appointment Scheduling</h2>
+
+                    <p class="section-text">With We Connect, booking an appointment is fast and easy. Our patient-friendly platform allows you to schedule appointments with top-tier healthcare professionals in just a few clicks.</p>
+
+                    <ul class="features-list">
+                        <li class="features-item">
+                            <figure class="features-item-banner"><img src="https://i.postimg.cc/yYjd16Z6/feature-1.png" alt="feature banner"></figure>
+
+                            <div class="feature-item-content">
+                                <h3 class="h2 item-title">Access to a Wide Network of Skilled Healthcare Professionals</h3>
+
+                                <p class="item-text"> Our network spans over 20 cities, providing patients with access to skilled doctors. </p>
+                            </div>
+                        </li>
+
+                        <li class="features-item">
+                            <figure class="features-item-banner"><img src="https://i.postimg.cc/4N21KGCZ/feature-2.png" alt="feature banner"></figure>
+
+                            <div class="feature-item-content">
+                                <h3 class="h2 item-title">Choosing Your Healthcare Provider</h3>
+
+                                <p class="item-text">Our platform ensures transparency, allowing you to review doctor profiles, specialties, and patient feedback before booking an appointment.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-brand">
+                    <a href="#" class="logo"><img src="../images/logo2.png" alt="Funel logo"></a>
+
+                    <p class="footer-text">Follow us on</p>
+
+                    <ul class="social-list">
+                        <li><a href="https://github.com/" class="social-link"><ion-icon name="logo-github"></ion-icon></a></li>
+                        <li><a href="https://www.instagram.com/?hl=en" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                        <li><a href="https://www.youtube.com/" class="social-link"><ion-icon name="logo-youtube"></ion-icon></a></li>
+                        <li><a href="https://www.facebook.com/" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-link-box">
+                    <ul class="footer-link-list">
+                        <li><h3 class="h4 link-title">Care 360</h3></li>
+                        <li><a href="#" class="footer-link">Home</a></li>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+
+                    <ul class="footer-link-list">
+                        <li><h3 class="h4 link-title">Products</h3></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+
+                    <ul class="footer-link-list">
+                        <li><h3 class="h4 link-title">Discover</h3></li>
+                        <li><a href="#" class="footer-link">Data and Privacy</a></li>
+                        <li><a href="#" class="footer-link">Reviews</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                    </ul>
+
+                    <ul class="footer-link-list">
+                        <li><h3 class="h4 link-title">Relevant</h3></li>
+                        <li><a href="#" class="footer-link">Why</a></li>
+                        <li><a href="#" class="footer-link">Services</a></li>
+                        <li><a href="#" class="footer-link">Customers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">@2025: Copyright&copy; Care360</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <a href="#top" class="go-top active" data-go-top><ion-icon name="chevron-up-outline"></ion-icon></a>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>const menuToggleBtn = document.querySelector('[data-navbar-toggle-btn]');
+        const navbar = document.querySelector('[data-navbar]');
+        
+        const elemToggleFunc = function(elem) { elem.classList.toggle("active"); }
+        menuToggleBtn.addEventListener("click", function() { elemToggleFunc(navbar); });
+        
+        //Enabling Go to Top
+        
+        const goTopBtn = document.querySelector('[data-go-top]');
+        
+        window.addEventListener('scroll', function() {
+            if(window.scrollY >= 800) {
+                goTopBtn.classList.add('active');
+            } else {
+                goTopBtn.classList.remove('active');
+            }
+        })</script>
+</body>
+</html>
